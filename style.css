@@ -1,194 +1,166 @@
-/* आप यहां अपनी लव कैलकुलेटर वेबसाइट के लिए मनमोहक और एनिमेटेड स्टाइल जोड़ें */
-
-/* उदाहरण के लिए कुछ रंग */
+/* Basic CSS for structure and layout - needs customization for visual appeal */
 body {
-    background: linear-gradient(45deg, #ffe6f2, #fdd4e8, #fbc2df, #faa0d5);
-    background-size: 400% 400%;
-    animation: gradientAnimation 15s ease infinite;
-    font-family: sans-serif;
+    font-family: sans-serif; /* Replace with your chosen font */
+    margin: 0;
+    padding: 0;
+    background-color: #fce4ec; /* Light pink background - Customize! */
+    color: #333;
+}
+
+header {
+    background-color: #ffcdd2; /* Light red/pink header - Customize! */
+    padding: 20px;
     text-align: center;
-    cursor: url('wing.gif'), auto; /* एनिमेटेड GIF के साथ कर्सर सेट करें */
 }
 
-@keyframes gradientAnimation {
-    0% {
-        background-position: 0% 50%;
-    }
-    50% {
-        background-position: 100% 50%;
-    }
-    100% {
-        background-position: 0% 50%;
-    }
+header .logo {
+    font-size: 24px;
+    font-weight: bold;
 }
 
-h1, h2 {
-    color: #e91e63; /* गहरा गुलाबी */
-    animation: fadeIn 2s ease;
+header .logo i {
+    margin-right: 5px; /* Heart icon spacing */
 }
 
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
+/* Styling for Love Calculator Text */
+.love-calculator-text {
+    color: red; /* Red color for Love Calculator */
+    font-size: 2.5em; /* Increased font size */
+}
+
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+.page {
+    display: none; /* Initially hide all pages */
+}
+
+.page:first-child {
+    display: block; /* Show the first page */
+}
+
+input[type="text"],
+select {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    width: 80%; /* Adjust width as needed */
+    max-width: 300px; /* Limit width on larger screens */
+    box-sizing: border-box; /* Include padding and border in width */
+    display: block; /* Make input a block element */
+    margin-left: auto;
+    margin-right: auto;
 }
 
 button {
-    background-color: #e91e63;
+    background-color: #e91e63; /* Pink button color - Customize! */
     color: white;
+    padding: 12px 20px;
     border: none;
-    padding: 10px 20px;
-    border-radius: 25px; /* दिल के आकार के लिए */
+    border-radius: 25px;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    font-size: 16px;
+    margin-top: 10px;
 }
 
 button:hover {
-    background-color: #c2185b; /* थोड़ा गहरा गुलाबी */
-    transform: scale(1.1);
+    background-color: #c2185b; /* Darker pink on hover */
 }
 
-/* अतिरिक्त स्टाइलिंग (अगर आपने पहले से नहीं जोड़ी है) */
-.container {
-    width: 90%; /* मोबाइल के लिए अधिक जगह */
-    margin: 20px auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+/* Align next button below name text boxes */
+.next-button {
+    display: block; /* Make button a block element */
+    margin-left: auto;
+    margin-right: auto; /* Center the button horizontally */
+    margin-top: 10px; /* Add some space between input and button */
 }
 
-input[type="text"], select {
-    padding: 10px;
-    margin: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    width: 80%; /* मोबाइल पर बड़ी इनपुट फ़ील्ड */
-    max-width: 300px; /* अधिकतम चौड़ाई */
-}
-
-.adsense {
-    margin: 20px auto;
-    width: 100%; /* मोबाइल पर पूरी चौड़ाई */
-    max-width: 320px; /* अधिकतम चौड़ाई */
-    height: 100px; /* ऊँचाई */
-    background-color: #eee; /* प्लेसहोल्डर */
-}
-
-/* AI Calculating स्टाइल */
-#ai-calculating {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    color: white;
-    font-size: 3em;
-}
-
-#ai-calculating .timer {
-    font-size: 2em;
+.ad-banner {
     margin-top: 20px;
+    text-align: center;
+    /* Define width and height as needed.  Example: */
+    width: 468px;
+    height: 60px;
+    margin: 20px auto;  /* Center the ad */
+    border: 1px solid #ddd; /* Placeholder border - remove in production */
 }
 
-/* AI Calculating bar ke leye code */
-.progress-bar-container {
-    width: 50%;
-    height: 30px;
+#loveMeter {
+    margin: 20px auto;
+    width: 80%;
+    max-width: 300px;
+}
+
+.meter-bar {
+    width: 100%;
+    height: 20px;
     background-color: #f0f0f0;
     border-radius: 10px;
     overflow: hidden;
-    margin-top: 20px;
 }
 
-.progress-bar {
+.meter-fill {
     height: 100%;
-    background-color: #e91e63;
-    width: 0;
+    background-color: #ff4081; /*  Customize Meter Color*/
+    width: 0; /* Initial width */
+    border-radius: 10px;
     transition: width 0.5s ease;
 }
 
-/* ऑडियो प्लेयर को छिपाएं */
-audio {
-    display: none;
-}
-
-/* म्यूट बटन स्टाइल */
-#muteButton {
-    background-color: #e91e63;
-    color: white;
-    border: none;
-    padding: 8px 16px;
-    border-radius: 5px;
-    cursor: pointer;
+#percentageDisplay {
     margin-top: 10px;
-    margin-bottom: 20px;
-    transition: transform 0.3s ease; /* होवर प्रभाव के लिए */
+    font-size: 18px;
+    font-weight: bold;
 }
 
-#muteButton:hover {
-    transform: scale(1.1); /* होवर पर थोड़ा बड़ा करें */
+.share-buttons {
+    margin-top: 20px;
 }
 
-/* हार्ट एनीमेशन */
-.heart {
-    position: absolute;
-    font-size: 1em; /* छोटा आकार */
-    color: #e91e63; /* गुलाबी रंग */
-    animation: floatHeart 5s linear infinite; /* धीमी गति */
-    opacity: 0; /* शुरू में अदृश्य */
-    text-shadow: 0 0 10px #fff; /* हृदय को तेज करने के लिए शैडो */
+.share-buttons a {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    margin: 5px;
+    text-decoration: none;
+    border-radius: 5px;
 }
 
-@keyframes floatHeart {
-    0% {
-        transform: translateY(100vh) translateX(0); /* नीचे से शुरू */
-        opacity: 0;
+.share-buttons a:hover {
+    background-color: #367c39;
+}
+
+footer {
+    background-color: #ffcdd2; /* Light red/pink footer - Customize! */
+    padding: 10px;
+    text-align: center;
+    color: #fff;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 600px) {
+    input[type="text"],
+    select {
+        width: 95%; /* Adjust width for smaller screens */
     }
-    10% {
-        opacity: 1; /* थोड़ा दिखाई दें */
-    }
-    90% {
-        opacity: 1; /* थोड़ा दिखाई दें */
-    }
-    100% {
-        transform: translateY(-10vh) translateX(100px); /* शीर्ष पर जाएं */
-        opacity: 0;
+    .ad-banner {
+        width: 100%;
+        max-width: 320px; /* Example for mobile ad size */
+        height: 50px;    /* Example for mobile ad size */
     }
 }
 
-/* सजावट विस्फोट */
-.confetti {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background-color: #f00;
-    border-radius: 50%;
-    animation: confettiFall 1s linear infinite,
-               confettiRotate 1s linear infinite;
-    opacity: 0;
-}
-
-@keyframes confettiFall {
-    0% { transform: translateY(0) translateX(0); opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { transform: translateY(100vh) translateX(200px); opacity: 0; }
-}
-
-@keyframes confettiRotate {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+/* Styling for attractive heading font */
+.attractive-font {
+  font-family: 'Brush Script MT', cursive; /* Example cursive font - Customize */
+  font-size: 2.2em; /* Adjust size as needed */
+  color: #e91e63;   /* Pink color - Customize */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Optional shadow */
 }
