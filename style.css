@@ -1,0 +1,194 @@
+/* आप यहां अपनी लव कैलकुलेटर वेबसाइट के लिए मनमोहक और एनिमेटेड स्टाइल जोड़ें */
+
+/* उदाहरण के लिए कुछ रंग */
+body {
+    background: linear-gradient(45deg, #ffe6f2, #fdd4e8, #fbc2df, #faa0d5);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+    font-family: sans-serif;
+    text-align: center;
+    cursor: url('wing.gif'), auto; /* एनिमेटेड GIF के साथ कर्सर सेट करें */
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+h1, h2 {
+    color: #e91e63; /* गहरा गुलाबी */
+    animation: fadeIn 2s ease;
+}
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+button {
+    background-color: #e91e63;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px; /* दिल के आकार के लिए */
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color: #c2185b; /* थोड़ा गहरा गुलाबी */
+    transform: scale(1.1);
+}
+
+/* अतिरिक्त स्टाइलिंग (अगर आपने पहले से नहीं जोड़ी है) */
+.container {
+    width: 90%; /* मोबाइल के लिए अधिक जगह */
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input[type="text"], select {
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    width: 80%; /* मोबाइल पर बड़ी इनपुट फ़ील्ड */
+    max-width: 300px; /* अधिकतम चौड़ाई */
+}
+
+.adsense {
+    margin: 20px auto;
+    width: 100%; /* मोबाइल पर पूरी चौड़ाई */
+    max-width: 320px; /* अधिकतम चौड़ाई */
+    height: 100px; /* ऊँचाई */
+    background-color: #eee; /* प्लेसहोल्डर */
+}
+
+/* AI Calculating स्टाइल */
+#ai-calculating {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    color: white;
+    font-size: 3em;
+}
+
+#ai-calculating .timer {
+    font-size: 2em;
+    margin-top: 20px;
+}
+
+/* AI Calculating bar ke leye code */
+.progress-bar-container {
+    width: 50%;
+    height: 30px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 20px;
+}
+
+.progress-bar {
+    height: 100%;
+    background-color: #e91e63;
+    width: 0;
+    transition: width 0.5s ease;
+}
+
+/* ऑडियो प्लेयर को छिपाएं */
+audio {
+    display: none;
+}
+
+/* म्यूट बटन स्टाइल */
+#muteButton {
+    background-color: #e91e63;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease; /* होवर प्रभाव के लिए */
+}
+
+#muteButton:hover {
+    transform: scale(1.1); /* होवर पर थोड़ा बड़ा करें */
+}
+
+/* हार्ट एनीमेशन */
+.heart {
+    position: absolute;
+    font-size: 1em; /* छोटा आकार */
+    color: #e91e63; /* गुलाबी रंग */
+    animation: floatHeart 5s linear infinite; /* धीमी गति */
+    opacity: 0; /* शुरू में अदृश्य */
+    text-shadow: 0 0 10px #fff; /* हृदय को तेज करने के लिए शैडो */
+}
+
+@keyframes floatHeart {
+    0% {
+        transform: translateY(100vh) translateX(0); /* नीचे से शुरू */
+        opacity: 0;
+    }
+    10% {
+        opacity: 1; /* थोड़ा दिखाई दें */
+    }
+    90% {
+        opacity: 1; /* थोड़ा दिखाई दें */
+    }
+    100% {
+        transform: translateY(-10vh) translateX(100px); /* शीर्ष पर जाएं */
+        opacity: 0;
+    }
+}
+
+/* सजावट विस्फोट */
+.confetti {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #f00;
+    border-radius: 50%;
+    animation: confettiFall 1s linear infinite,
+               confettiRotate 1s linear infinite;
+    opacity: 0;
+}
+
+@keyframes confettiFall {
+    0% { transform: translateY(0) translateX(0); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(100vh) translateX(200px); opacity: 0; }
+}
+
+@keyframes confettiRotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
