@@ -1,16 +1,3 @@
-<script type="text/javascript">
-	atOptions = {
-		'key' : '335dbfb16faf973bd2007ed03f552ceb',
-		'format' : 'iframe',
-		'height' : 60,
-		'width' : 468,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/335dbfb16faf973bd2007ed03f552ceb/invoke.js"></script>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,280 +5,119 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Love Calculator</title>
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-          integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
-    <style>
-        /* यहाँ से स्टाइलिंग को हटा दिया गया है और style.css में ले जाया गया है */
-        .en {
-            display: none;
-        }
-
-        .hi {
-            display: none;
-        }
-
-        #language-selection {
-            text-align: center;
-            padding: 20px;
-        }
-
-        #language-selection button {
-            margin: 10px;
-            padding: 10px 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="script.js" defer></script>
 </head>
 <body>
-
-<div class="container">
-
-    <!-- भाषा चयन पृष्ठ -->
-    <div id="language-selection">
-        <h2>Select Language:</h2>
-        <button onclick="setLanguage('en')">English</button>
-        <button onclick="setLanguage('hi')">हिंदी</button>
-    </div>
-
-    <h1 class="en">Love Calculator <span style="color:#e91e63;">❤️</span></h1>
-    <h1 class="hi">प्यार कैलकुलेटर <span style="color:#e91e63;">❤️</span></h1>
-
-    <div id="page1" style="display:none;">
-        <h2 class="en">Enter first name:</h2>
-        <h2 class="hi">पहला नाम दर्ज करें:</h2>
-        <input type="text" id="name1_en" placeholder="Your name" class="en">
-        <input type="text" id="name1_hi" placeholder="आपका नाम" class="hi">
-        <button onclick="showCalculating(goToPage2)" class="en">Next <span style="color:white;">❤️</span></button>
-        <button onclick="showCalculating(goToPage2)" class="hi">आगे बढ़ें <span style="color:white;">❤️</span></button>
-    </div>
-
-    <div id="page2" style="display:none;">
-        <h2 class="en">Enter second name:</h2>
-        <h2 class="hi">दूसरे व्यक्ति का नाम दर्ज करें:</h2>
-        <input type="text" id="name2_en" placeholder="Their name" class="en">
-        <input type="text" id="name2_hi" placeholder="उनका नाम" class="hi">
-        <button onclick="showCalculating(goToPage3)" class="en">Next <span style="color:white;">❤️</span></button>
-        <button onclick="showCalculating(goToPage3)" class="hi">आगे बढ़ें <span style="color:white;">❤️</span></button>
-    </div>
-
-    <div id="page3" style="display:none;">
-        <h2 class="en">What percentage of love do you expect?</h2>
-        <h2 class="hi">आपको क्या लगता है, कितना प्यार है?</h2>
-        <select id="userPercentage_en" class="en">
-            <option value="10">10%</option>
-            <option value="20">20%</option>
-            <option value="30">30%</option>
-            <option value="40">40%</option>
-            <option value="50">50%</option>
-            <option value="60">60%</option>
-            <option value="70">70%</option>
-            <option value="80">80%</option>
-            <option value="90">90%</option>
-            <option value="100">100%</option>
-        </select>
-        <select id="userPercentage_hi" class="hi">
-            <option value="10">10%</option>
-            <option value="20">20%</option>
-            <option value="30">30%</option>
-            <option value="40">40%</option>
-            <option value="50">50%</option>
-            <option value="60">60%</option>
-            <option value="70">70%</option>
-            <option value="80">80%</option>
-            <option value="90">90%</option>
-            <option value="100">100%</option>
-        </select>
-        <button onclick="showCalculating(calculateLove)" class="en">See Results <span
-                style="color:white;">❤️</span></button>
-        <button onclick="showCalculating(calculateLove)" class="hi">परिणाम देखें <span
-                style="color:white;">❤️</span></button>
-    </div>
-
-    <div id="result" style="display:none;">
-        <h2 class="en">Results:</h2>
-        <h2 class="hi">परिणाम:</h2>
-        <p id="userGuess_en" class="en"></p>
-        <p id="userGuess_hi" class="hi"></p>
-        <p id="calculatorResult_en" class="en"></p>
-        <p id="calculatorResult_hi" class="hi"></p>
-        <p id="loveMessage_en" class="en"></p>
-        <p id="loveMessage_hi" class="hi"></p>
-        <button onclick="shareResult()" class="en">Share <span style="color:white;">❤️</span></button>
-        <button onclick="shareResult()" class="hi">शेयर करें <span style="color:white;">❤️</span></button>
-    </div>
-
-    <div class="adsense">
-        <!-- विज्ञापन कोड के लिए स्थान -->
-    </div>
-
-    <!-- AI Calculating स्क्रीन -->
-    <div id="ai-calculating">
-        AI Calculating...
-        <div class="progress-bar-container">
-            <div class="progress-bar" id="progress-bar"></div>
+    <header>
+        <div class="logo">
+            <i class="fas fa-heart"></i> <span class="love-calculator-text">Love Calculator</span>
         </div>
-    </div>
+    </header>
 
-    <button id="muteButton" onclick="toggleMusic()">Mute/Unmute Music ❤️</button>
-</div>
+    <main id="content">
+        <!-- Page 1 -->
+        <div class="page" id="page1">
+            <h1 class="attractive-font">Let’s Begin the Love Test!</h1>
+            <input type="text" id="name1" placeholder="Enter Your Name">
+            <button class="next-button" onclick="goToPage(2)">Next <i class="fas fa-arrow-right"></i></button>
+            <div class="ad-banner" id="ad-banner-1">
+              <script type="text/javascript">
+                atOptions = {
+                  'key' : '335dbfb16faf973bd2007ed03f552ceb',
+                  'format' : 'iframe',
+                  'height' : 60,
+                  'width' : 468,
+                  'params' : {}
+                };
+              </script>
+              <script type="text/javascript" src="//www.highperformanceformat.com/335dbfb16faf973bd2007ed03f552ceb/invoke.js"></script>
+            </div>
+        </div>
 
-<audio id="romanticMusic" loop>
-    <source src="romantic_music.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-</audio>
+        <!-- Page 2 -->
+        <div class="page" id="page2" style="display: none;">
+            <h1 class="attractive-font">Who’s Your Love Match?</h1>
+            <input type="text" id="name2" placeholder="Enter Your Partner’s Name">
+            <button class="next-button" onclick="goToPage(3)">Next <i class="fas fa-arrow-right"></i></button>
+            <div class="ad-banner" id="ad-banner-2">
+              <script type="text/javascript">
+                atOptions = {
+                  'key' : '335dbfb16faf973bd2007ed03f552ceb',
+                  'format' : 'iframe',
+                  'height' : 60,
+                  'width' : 468,
+                  'params' : {}
+                };
+              </script>
+              <script type="text/javascript" src="//www.highperformanceformat.com/335dbfb16faf973bd2007ed03f552ceb/invoke.js"></script>
+            </div>
+        </div>
 
-<div class="adsense-bottom">
-	<script type="text/javascript">
-		atOptions = {
-			'key' : '1817d11f81d5bcc1bfe3aa93b99cd724',
-			'format' : 'iframe',
-			'height' : 50,
-			'width' : 320,
-			'params' : {}
-		};
-	</script>
-	<script type="text/javascript" src="//www.highperformanceformat.com/1817d11f81d5bcc1bfe3aa93b99cd724/invoke.js"></script>
-</div>
+        <!-- Page 3 -->
+        <div class="page" id="page3" style="display: none;">
+            <h1 class="attractive-font">What Do You Think Your Love Score Will Be?</h1>
+            <select id="percentageGuess">
+                <option value="10">10%</option>
+                <option value="20">20%</option>
+                <option value="30">30%</option>
+                <option value="40">40%</option>
+                <option value="50">50%</option>
+                <option value="60">60%</option>
+                <option value="70">70%</option>
+                <option value="80">80%</option>
+                <option value="90">90%</option>
+                <option value="100">100%</option>
+            </select>
+            <button class="submit-button" onclick="showResult()">Submit & Reveal <i class="fas fa-heart"></i></button>
+            <div class="ad-banner" id="ad-banner-3">
+              <script type="text/javascript">
+                atOptions = {
+                  'key' : '335dbfb16faf973bd2007ed03f552ceb',
+                  'format' : 'iframe',
+                  'height' : 60,
+                  'width' : 468,
+                  'params' : {}
+                };
+              </script>
+              <script type="text/javascript" src="//www.highperformanceformat.com/335dbfb16faf973bd2007ed03f552ceb/invoke.js"></script>
+            </div>
+        </div>
 
-<script src="script.js"></script>
-<script>
-    // डिफ़ॉल्ट भाषा अंग्रेजी सेट करें
-    let currentLanguage = ''; // कोई भाषा डिफ़ॉल्ट में सेट नहीं है
+        <!-- Page 4 -->
+        <div class="page" id="page4" style="display: none;">
+            <h1 class="attractive-font">Here’s Your Love Compatibility!</h1>
+            <div id="namesDisplay"></div>
+            <div id="loveMeter">
+                <div class="meter-bar">
+                    <div class="meter-fill" id="meterFill"></div>
+                </div>
+                <div id="percentageDisplay"></div>
+            </div>
+            <div id="loveMessage"></div>
+            <div class="share-buttons">
+                <a href="#" id="facebookShare" target="_blank"><i class="fab fa-facebook"></i> Facebook</a>
+                <a href="#" id="instagramShare" target="_blank"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="#" id="whatsappShare" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                <a href="#" id="twitterShare" target="_blank"><i class="fab fa-twitter"></i> Twitter</a>
+            </div>
+            <div class="ad-banner" id="ad-banner-4">
+              <script type="text/javascript">
+                atOptions = {
+                  'key' : '335dbfb16faf973bd2007ed03f552ceb',
+                  'format' : 'iframe',
+                  'height' : 60,
+                  'width' : 468,
+                  'params' : {}
+                };
+              </script>
+              <script type="text/javascript" src="//www.highperformanceformat.com/335dbfb16faf973bd2007ed03f552ceb/invoke.js"></script>
+            </div>
+        </div>
+    </main>
 
-    function setLanguage(lang) {
-        currentLanguage = lang;
-        document.getElementById('language-selection').style.display = 'none'; // भाषा चयन को छिपाएं
-        document.querySelectorAll('.en').forEach(el => el.style.display = 'none'); // सभी को छिपाएं
-        document.querySelectorAll('.hi').forEach(el => el.style.display = 'none');
-
-        if (lang === 'en') {
-            document.querySelectorAll('.en').forEach(el => el.style.display = 'block'); // अंग्रेजी सामग्री दिखाएं
-        } else if (lang === 'hi') {
-            document.querySelectorAll('.hi').forEach(el => el.style.display = 'block'); // हिंदी सामग्री दिखाएं
-        }
-
-        // पहला पेज दिखाएं
-        document.getElementById('page1').style.display = 'block';
-    }
-
-    // AI Calculating स्क्रीन दिखाने और छिपाने का फ़ंक्शन
-    function showCalculating(callback) {
-        const aiCalculating = document.getElementById('ai-calculating');
-        aiCalculating.style.display = 'flex';
-
-        const progressBar = document.getElementById('progress-bar');
-        progressBar.style.width = '0';
-
-        const intervalTime = 50;
-        const totalTime = 5000;
-        const widthMax = 100; // maximum width for the code.
-        const increment = (widthMax / (totalTime / intervalTime));
-
-        let width = 0;
-        progressBar.style.width = width + '%';
-
-        const interval = setInterval(() => {
-            width += increment;
-            if (width >= widthMax) {
-                width = widthMax;
-                clearInterval(interval);
-                setTimeout(() => {
-                    aiCalculating.style.display = 'none';
-                    callback(); // पास किए गए फ़ंक्शन को कॉल करें
-                }, 0);
-            }
-            progressBar.style.width = width + '%';
-        }, intervalTime);
-    }
-
-    // फ़ंक्शन संगीत को म्यूट/अनम्यूट करने के लिए
-    function toggleMusic() {
-        var music = document.getElementById("romanticMusic");
-        music.muted = !music.muted;
-    }
-
-    // उपयोगकर्ता इंटरैक्शन के बाद संगीत चलाएं
-    function playMusic() {
-        var music = document.getElementById("romanticMusic");
-        music.play();
-        document.removeEventListener('click', playMusic);
-        document.removeEventListener('touchstart', playMusic);
-    }
-
-    document.addEventListener('click', playMusic);
-    document.addEventListener('touchstart', playMusic);
-
-    function showResultWithConfetti() {
-        // परिणाम कंटेनर दिखाएं
-        document.getElementById('result').style.display = 'block';
-
-        // कंफेट्टी बनाने के लिए 50 तत्वों का उपयोग करें
-        for (let i = 0; i < 50; i++) {
-            createConfetti();
-        }
-    }
-
-    // कंफेट्टी बनाने के लिए फ़ंक्शन
-    function createConfetti() {
-        const confetti = document.createElement('div');
-        confetti.classList.add('confetti');
-        confetti.style.left = Math.random() * 100 + 'vw';
-        confetti.style.backgroundColor = getRandomColor();
-        confetti.style.animationDelay = Math.random() + 's';
-        document.body.appendChild(confetti);
-        // कंफेट्टी निकालने के लिए
-        setTimeout(function() {
-            confetti.remove();
-        }, 3000);
-    }
-
-    // रैंडम कलर जनरेट करने के लिए फ़ंक्शन
-    function getRandomColor() {
-        const colors = ['#f00', '#0f0', '#00f', '#ff0', '#f0f', '#0ff'];
-        return colors[Math.floor(Math.random() * colors.length)];
-    }
-
-    // हर सेकंड में एक दिल बनाएँ
-    setInterval(function() {
-        createHeart();
-    }, 500);
-
-    // दिल बनाने के लिए फ़ंक्शन
-    function createHeart() {
-        const heart = document.createElement('div');
-        heart.classList.add('heart');
-        heart.innerHTML = '❤️'; // दिल का प्रतीक
-        heart.style.left = Math.random() * 100 + 'vw'; // स्क्रीन के बाएं किनारे पर यादृच्छिक स्थान
-        heart.style.animationDuration = Math.random() * 3 + 2 + 's'; // यादृच्छिक अवधि
-        document.body.appendChild(heart);
-        setTimeout(function() {
-            heart.remove();
-        }, 5000);
-    }
- // उड़ने वाले दिल बनाने के लिए फंक्शन
- function createHeartTrail(x, y) {
-     const heart = document.createElement('div');
-     heart.classList.add('heart');
-     heart.style.left = x + 'px';
-     heart.style.top = y + 'px';
-     document.body.appendChild(heart);
-     setTimeout(function() {
-         heart.remove();
-     }, 1000);
- }
-// अपने कर्सर के चारों ओर दिल के प्रभाव को जोड़ने के लिए, यह स्निपेट जोड़ें
-document.addEventListener('mousemove', function(e) {
-    createHeartTrail(e.clientX, e.clientY);
-});
-    </script>
+    <footer>
+        <p>© 2024 Love Calculator</p>
+    </footer>
 </body>
 </html>
-<script type="text/javascript">
-	atOptions = {
-		'key' : '335dbfb16faf973bd2007ed03f552ceb',
-		'format' : 'iframe',
-		'height' : 60,
-		'width' : 468,
-		'params' : {}
-	};
-</script>
-<script type="text/javascript" src="//www.highperformanceformat.com/335dbfb16faf973bd2007ed03f552ceb/invoke.js"></script>
