@@ -56,6 +56,33 @@
         40% {transform: translateY(-15px);}
         60% {transform: translateY(-7px);}
     }
+    #musicToggleButton {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background-color: #f43f5e; /* rose-500 */
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 50px;
+      height: 50px;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+    #musicToggleButton:hover {
+      background-color: #e11d48; /* rose-600 */
+      transform: scale(1.1);
+    }
+    #musicToggleButton svg {
+        width: 24px;
+        height: 24px;
+    }
   </style>
 <script type="importmap">
 {
@@ -69,6 +96,12 @@
 </script>
 </head>
 <body class="bg-gradient-to-br from-rose-100 via-pink-100 to-red-100 text-gray-800 selection:bg-red-300 selection:text-white">
+
+  <audio id="backgroundMusic" loop autoplay>
+    <!-- IMPORTANT: Replace this src with the actual path to your music file -->
+    <source src="path/to/your/romantic-music.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
 
   <div id="app-container" class="min-h-screen flex flex-col items-center justify-center p-4 relative overflow-hidden">
     <!-- Global Decorative Sparkles -->
@@ -101,7 +134,7 @@
           </button>
         </main>
         <footer class="mt-8 md:mt-12 relative z-10">
-          <div id="ad-banner-page1" class="w-full h-[60px] md:h-[90px] bg-pink-100/70 border border-dashed border-pink-300 rounded-lg flex items-center justify-center text-pink-500 my-4 shadow-inner p-2">
+          <div id="ad-banner-page1" class="w-full min-h-[60px] md:min-h-[90px] bg-pink-100/70 border border-dashed border-pink-300 rounded-lg flex items-center justify-center text-pink-500 my-4 shadow-inner p-2">
             <script type="text/javascript">
               atOptions = {
                 'key' : '335dbfb16faf973bd2007ed03f552ceb',
@@ -141,7 +174,7 @@
           </button>
         </main>
         <footer class="mt-8 md:mt-12 relative z-10">
-          <div id="ad-banner-page2" class="w-full h-[60px] md:h-[90px] bg-pink-100/70 border border-dashed border-pink-300 rounded-lg flex items-center justify-center text-pink-500 my-4 shadow-inner p-2">
+          <div id="ad-banner-page2" class="w-full min-h-[60px] md:min-h-[90px] bg-pink-100/70 border border-dashed border-pink-300 rounded-lg flex items-center justify-center text-pink-500 my-4 shadow-inner p-2">
             <script type="text/javascript">
               atOptions = {
                 'key' : '335dbfb16faf973bd2007ed03f552ceb',
@@ -186,7 +219,7 @@
           </button>
         </main>
         <footer class="mt-8 md:mt-12 relative z-10">
-          <div id="ad-banner-page3" class="w-full h-[60px] md:h-[90px] bg-pink-100/70 border border-dashed border-pink-300 rounded-lg flex items-center justify-center text-pink-500 my-4 shadow-inner p-2">
+          <div id="ad-banner-page3" class="w-full min-h-[60px] md:min-h-[90px] bg-pink-100/70 border border-dashed border-pink-300 rounded-lg flex items-center justify-center text-pink-500 my-4 shadow-inner p-2">
             <script type="text/javascript">
               atOptions = {
                 'key' : '335dbfb16faf973bd2007ed03f552ceb',
@@ -250,7 +283,7 @@
           <div id="page4AdContainerSpecific" class="flex justify-center items-center my-6 min-h-[60px] w-full max-w-[468px] mx-auto">
             {/* Page 4 specific ad script will be loaded here by JS */}
           </div>
-          <div id="ad-banner-page4-generic" class="w-full h-[60px] md:h-[90px] bg-pink-100/70 border border-dashed border-pink-300 rounded-lg flex items-center justify-center text-pink-500 my-4 shadow-inner p-2">
+          <div id="ad-banner-page4-generic" class="w-full min-h-[60px] md:min-h-[90px] bg-pink-100/70 border border-dashed border-pink-300 rounded-lg flex items-center justify-center text-pink-500 my-4 shadow-inner p-2">
             <script type="text/javascript">
               atOptions = {
                 'key' : '335dbfb16faf973bd2007ed03f552ceb',
@@ -309,6 +342,8 @@
     const shareButtonsContainer = document.getElementById('shareButtonsContainer');
     const tryAgainButton = document.getElementById('tryAgainButton');
     const page4AdContainerSpecific = document.getElementById('page4AdContainerSpecific');
+    
+    const backgroundMusic = document.getElementById('backgroundMusic');
 
 
     // --- Helper Functions ---
@@ -538,6 +573,79 @@ Wanna know how strong your love is? 🔥💑
       showPage('page1');
     });
 
+    // --- Music Toggle ---
+    const musicToggleButton = document.createElement('button');
+    musicToggleButton.id = 'musicToggleButton';
+    musicToggleButton.setAttribute('aria-label', 'Toggle background music');
+    musicToggleButton.setAttribute('aria-pressed', 'true'); // Initially playing
+
+    const speakerIconSVG = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z" /></svg>';
+    const muteIconSVG = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 9.75L19.5 12m0 0L17.25 14.25M19.5 12h-7.5M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z" /></svg>';
+
+    if (backgroundMusic) {
+      musicToggleButton.innerHTML = backgroundMusic.muted ? muteIconSVG : speakerIconSVG;
+      musicToggleButton.setAttribute('aria-pressed', !backgroundMusic.muted);
+
+
+      musicToggleButton.addEventListener('click', () => {
+        backgroundMusic.muted = !backgroundMusic.muted;
+        if (backgroundMusic.muted) {
+          musicToggleButton.innerHTML = muteIconSVG;
+          musicToggleButton.setAttribute('aria-pressed', 'false');
+          // If music was paused due to autoplay restrictions, and user unmutes, try playing.
+          if (backgroundMusic.paused) {
+              backgroundMusic.play().catch(e => console.warn("Music play failed after unmute:", e));
+          }
+        } else {
+          musicToggleButton.innerHTML = speakerIconSVG;
+          musicToggleButton.setAttribute('aria-pressed', 'true');
+          backgroundMusic.play().catch(e => console.warn("Music play failed after unmute:", e));
+        }
+      });
+      
+      // Attempt to play music once user interacts (if autoplay failed)
+      // This is a common pattern to handle autoplay restrictions.
+      const playMusicOnInteraction = () => {
+        if (backgroundMusic.paused && !backgroundMusic.muted) {
+            backgroundMusic.play().catch(e => console.warn("Autoplay initially failed, user interaction play failed:", e));
+        }
+        // Remove listener after first interaction
+        document.body.removeEventListener('click', playMusicOnInteraction);
+        document.body.removeEventListener('keydown', playMusicOnInteraction);
+      };
+
+      document.body.addEventListener('click', playMusicOnInteraction, { once: true });
+      document.body.addEventListener('keydown', playMusicOnInteraction, { once: true });
+
+
+      // Check if audio is already playing due to autoplay
+      // If autoplay worked, set the button icon correctly.
+      // The `autoplay` attribute might not always succeed due to browser policies.
+      // A common approach is to attempt to play and update UI accordingly.
+      backgroundMusic.play().then(() => {
+          console.log("Background music autoplay started.");
+          backgroundMusic.muted = false; // Ensure it's unmuted if autoplay succeeds
+          musicToggleButton.innerHTML = speakerIconSVG;
+          musicToggleButton.setAttribute('aria-pressed', 'true');
+      }).catch(error => {
+          console.warn("Background music autoplay was prevented. User interaction might be needed.", error);
+          // Music is likely paused and muted by default if autoplay fails or src is missing
+          // If src is missing, muted state doesn't matter as much as it won't play
+          if (backgroundMusic.src && backgroundMusic.src !== window.location.href) { // Check if src is set and not just base URL
+            backgroundMusic.muted = true; // Mute it if autoplay failed and it's not already
+          }
+          musicToggleButton.innerHTML = muteIconSVG;
+          musicToggleButton.setAttribute('aria-pressed', 'false');
+      });
+       // If src is not set, it might be better to hide the button or indicate no music
+        if (!backgroundMusic.currentSrc && backgroundMusic.src.endsWith('path/to/your/romantic-music.mp3')) {
+            // If using placeholder, perhaps disable/hide button or show different state
+            console.warn("Music source is a placeholder. Please update it.");
+        }
+
+    }
+
+
     // --- Initial Setup ---
     document.addEventListener('DOMContentLoaded', () => {
       // Populate percentage options
@@ -547,6 +655,10 @@ Wanna know how strong your love is? 🔥💑
         option.textContent = `${opt}%`;
         guessPercentageInput.appendChild(option);
       });
+      
+      if (backgroundMusic) { // Only append if audio element exists
+        document.body.appendChild(musicToggleButton);
+      }
       
       resetCalculator(); // Clear state and inputs
       showPage('page1'); // Show the first page
