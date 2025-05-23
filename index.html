@@ -99,7 +99,7 @@
 
   <audio id="backgroundMusic" loop autoplay>
     <!-- IMPORTANT: Replace this src with the actual path to your music file -->
-    <source src="romantic-music.mp3" type="audio/mpeg">
+    <source src="path/to/your/romantic-music.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
@@ -631,8 +631,8 @@ Wanna know how strong your love is? 🔥💑
       });
       
       // If src is the placeholder, remind user to update it.
-      if (!backgroundMusic.currentSrc && backgroundMusic.src && backgroundMusic.src.includes('romantic-music.mp3')) {
-          console.warn("Music source is a placeholder (romantic-music.mp3). Please update it with a valid music file path for audio to play.");
+      if (!backgroundMusic.currentSrc && backgroundMusic.src && backgroundMusic.src.includes('path/to/your/romantic-music.mp3')) {
+          console.warn("Music source is a placeholder (path/to/your/romantic-music.mp3). Please update it with a valid music file path for audio to play.");
       }
     }
 
