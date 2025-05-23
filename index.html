@@ -348,17 +348,20 @@
     }
     
     function populateShareButtons() {
-        const shareText = ``💘💥 OMG! This is crazy! 💥💘
+        const shareText = `💘💥 OMG! This is crazy! 💥💘 My love score with ${currentName2} is ${currentLoveScore}%! Calculated by Love Calculator. ❤️`;
+
+
+`💘💥 OMG! This is crazy! 💥💘
 I just tested my ❤️ Love Score ❤️ with ${currentName1} and ${currentName2}💔 It's only ${currentLoveScore}%!
 But hey, at least now I know! 😜💡
 Wanna know how strong your love is? 🔥💑
 👉 Tap here & check your compatibility now!
 🔗 https://love-calculator-umber-delta.vercel.app/
-🎯 Fun. Fast. Flirty.`;`;
+🎯 Fun. Fast. Flirty.`;
 
 
 
-       const shareUrl = window.location.href.split('#')[0]; // Base URL
+        const shareUrl = window.location.href.split('#')[0]; // Base URL
         const encodedText = encodeURIComponent(shareText);
         const encodedUrl = encodeURIComponent(shareUrl);
 
