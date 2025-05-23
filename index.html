@@ -99,7 +99,7 @@
 
   <audio id="backgroundMusic" loop autoplay>
     <!-- IMPORTANT: Replace this src with the actual path to your music file -->
-    <source src="romantic-music.mp3" type="audio/mpeg">
+    <source src="path/to/your/romantic-music.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
   </audio>
 
@@ -577,72 +577,63 @@ Wanna know how strong your love is? 🔥💑
     const musicToggleButton = document.createElement('button');
     musicToggleButton.id = 'musicToggleButton';
     musicToggleButton.setAttribute('aria-label', 'Toggle background music');
-    musicToggleButton.setAttribute('aria-pressed', 'true'); // Initially playing
+    // Initial aria-pressed state will be set after attempting to play
 
     const speakerIconSVG = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z" /></svg>';
     const muteIconSVG = '<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 9.75L19.5 12m0 0L17.25 14.25M19.5 12h-7.5M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z" /></svg>';
 
     if (backgroundMusic) {
-      musicToggleButton.innerHTML = backgroundMusic.muted ? muteIconSVG : speakerIconSVG;
-      musicToggleButton.setAttribute('aria-pressed', !backgroundMusic.muted);
+      // Attempt to play unmuted by default
+      backgroundMusic.muted = false;
+      musicToggleButton.innerHTML = speakerIconSVG; // Optimistically set to playing
+      musicToggleButton.setAttribute('aria-pressed', 'true');
 
+      let playPromise = backgroundMusic.play();
 
-      musicToggleButton.addEventListener('click', () => {
-        backgroundMusic.muted = !backgroundMusic.muted;
-        if (backgroundMusic.muted) {
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          // Autoplay started successfully (unmuted).
+          console.log("Background music autoplay started (unmuted).");
+          // Button state is already set correctly.
+        }).catch(error => {
+          // Unmuted autoplay was prevented by the browser.
+          console.warn("Unmuted background music autoplay was prevented. Music will be muted.", error);
+          backgroundMusic.muted = true;
           musicToggleButton.innerHTML = muteIconSVG;
           musicToggleButton.setAttribute('aria-pressed', 'false');
-          // If music was paused due to autoplay restrictions, and user unmutes, try playing.
-          if (backgroundMusic.paused) {
-              backgroundMusic.play().catch(e => console.warn("Music play failed after unmute:", e));
-          }
-        } else {
+        });
+      } else {
+        // play() did not return a promise (e.g. invalid src, older browser)
+         console.warn("backgroundMusic.play() did not return a promise. Defaulting to muted state.");
+        backgroundMusic.muted = true;
+        musicToggleButton.innerHTML = muteIconSVG;
+        musicToggleButton.setAttribute('aria-pressed', 'false');
+      }
+
+      musicToggleButton.addEventListener('click', () => {
+        if (backgroundMusic.muted) {
+          backgroundMusic.muted = false;
           musicToggleButton.innerHTML = speakerIconSVG;
           musicToggleButton.setAttribute('aria-pressed', 'true');
-          backgroundMusic.play().catch(e => console.warn("Music play failed after unmute:", e));
+          backgroundMusic.play().catch(e => {
+            console.warn("Music play failed after unmuting via button:", e);
+            // If play still fails, revert to muted state
+            backgroundMusic.muted = true;
+            musicToggleButton.innerHTML = muteIconSVG;
+            musicToggleButton.setAttribute('aria-pressed', 'false');
+          });
+        } else {
+          backgroundMusic.muted = true;
+          musicToggleButton.innerHTML = muteIconSVG;
+          musicToggleButton.setAttribute('aria-pressed', 'false');
+          // No need to explicitly pause, muting handles the sound.
         }
       });
       
-      // Attempt to play music once user interacts (if autoplay failed)
-      // This is a common pattern to handle autoplay restrictions.
-      const playMusicOnInteraction = () => {
-        if (backgroundMusic.paused && !backgroundMusic.muted) {
-            backgroundMusic.play().catch(e => console.warn("Autoplay initially failed, user interaction play failed:", e));
-        }
-        // Remove listener after first interaction
-        document.body.removeEventListener('click', playMusicOnInteraction);
-        document.body.removeEventListener('keydown', playMusicOnInteraction);
-      };
-
-      document.body.addEventListener('click', playMusicOnInteraction, { once: true });
-      document.body.addEventListener('keydown', playMusicOnInteraction, { once: true });
-
-
-      // Check if audio is already playing due to autoplay
-      // If autoplay worked, set the button icon correctly.
-      // The `autoplay` attribute might not always succeed due to browser policies.
-      // A common approach is to attempt to play and update UI accordingly.
-      backgroundMusic.play().then(() => {
-          console.log("Background music autoplay started.");
-          backgroundMusic.muted = false; // Ensure it's unmuted if autoplay succeeds
-          musicToggleButton.innerHTML = speakerIconSVG;
-          musicToggleButton.setAttribute('aria-pressed', 'true');
-      }).catch(error => {
-          console.warn("Background music autoplay was prevented. User interaction might be needed.", error);
-          // Music is likely paused and muted by default if autoplay fails or src is missing
-          // If src is missing, muted state doesn't matter as much as it won't play
-          if (backgroundMusic.src && backgroundMusic.src !== window.location.href) { // Check if src is set and not just base URL
-            backgroundMusic.muted = true; // Mute it if autoplay failed and it's not already
-          }
-          musicToggleButton.innerHTML = muteIconSVG;
-          musicToggleButton.setAttribute('aria-pressed', 'false');
-      });
-       // If src is not set, it might be better to hide the button or indicate no music
-        if (!backgroundMusic.currentSrc && backgroundMusic.src.endsWith('path/to/your/romantic-music.mp3')) {
-            // If using placeholder, perhaps disable/hide button or show different state
-            console.warn("Music source is a placeholder. Please update it.");
-        }
-
+      // If src is the placeholder, remind user to update it.
+      if (!backgroundMusic.currentSrc && backgroundMusic.src && backgroundMusic.src.includes('path/to/your/romantic-music.mp3')) {
+          console.warn("Music source is a placeholder (path/to/your/romantic-music.mp3). Please update it with a valid music file path for audio to play.");
+      }
     }
 
 
